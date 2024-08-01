@@ -250,12 +250,16 @@ const BillPage = () => {
     initialdata.product = product
 
     const result = await createBill(initialdata)
-    if (result.data.code === 200) {
+
+    if (!axios.isAxiosError(result)) {
       setOpenSuccess(true)
       console.log(result)
       setBillId(result.data.data.billId)
       setBill(result.data.data)
       sessionStorage.removeItem('cardValues')
+      console.log(result)
+    } else {
+      alert(result.response.data.message)
     }
   }
 

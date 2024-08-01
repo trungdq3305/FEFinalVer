@@ -19,8 +19,9 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import LastPageIcon from '@mui/icons-material/LastPage'
 import { useTheme } from '@emotion/react'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const CashBill = ({ cashBill, totalCost }) => {
+const CashBill = ({ cashBill, totalCost, reload }) => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const navigate = useNavigate()
@@ -117,20 +118,6 @@ const CashBill = ({ cashBill, totalCost }) => {
     <>
       {cashBill !== undefined ? (
         <>
-          <h2
-            style={{
-              marginTop: '20px',
-            }}
-          >
-            Number of Bill: {cashBill.length}{' '}
-          </h2>
-          <h2
-            style={{
-              marginBottom: '20px',
-            }}
-          >
-            Total: {Number(totalCost.toFixed(0)).toLocaleString('vn')}{' '}
-          </h2>
           <TableContainer
             component={Paper}
             sx={{ maxHeight: 600, display: 'flex', flexDirection: 'column' }}
@@ -299,6 +286,10 @@ const CashBill = ({ cashBill, totalCost }) => {
       )}
     </>
   )
+}
+CashBill.propTypes = {
+  cashBill: PropTypes.array.isRequired,
+  reload: PropTypes.func.isRequired,
 }
 
 export default CashBill
