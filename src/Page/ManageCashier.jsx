@@ -39,17 +39,22 @@ const ManageCashier = () => {
     if (searchValue.length === 0) {
       loadCashier();
     } else {
-      const result = await searchCashier(searchValue);
-      setCashiers(result.data.data);
+      try {
+        const result = await searchCashier(searchValue);
+        setCashiers(result.data.data); // Ensure this matches the structure of the response
+      } catch (error) {
+        console.error('Error searching cashiers:', error);
+      }
     }
   };
+  useEffect(() => {
+  }, [cashiers]);  
 
   const loadCashier = async () => {
     setLoading(true);
-    const result = await getAllCashier();
-    setCashiers(result.data);
-    console.log(result);
-    setLoading(false);
+    const result = await getAllCashier()
+    setCashiers(result.data)
+    setLoading(false)
   };
 
   const handleAddCashier = async (formData) => {
@@ -62,7 +67,6 @@ const ManageCashier = () => {
       if (result.code === 400) {
         window.alert(result.message);
       } else {
-        console.log(result.data);
         handleCloseAddDialog();
         loadCashier();
       }
@@ -84,7 +88,6 @@ const ManageCashier = () => {
     loadUsers();
 
   }, []);
-  
   if (loading) return <div>Loading....</div>;
 
   return (

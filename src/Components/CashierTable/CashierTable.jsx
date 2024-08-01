@@ -108,13 +108,15 @@ const CashierTable = ({ cashiers, users }) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openDialog, setOpenDialog] = useState(false);
   const [updateData, setUpdateData] = useState(initialFormData);
-  const [cashierList, setCashierList] = useState(cashiers); // Manage cashier list state
+  const [cashierList, setCashierList] = useState(cashiers);
+
+  useEffect(() => {
+    setCashierList(cashiers);
+  }, [cashiers]);
 
   const handleUpdate = async (updatedCashier) => {
     try {
       const result = await updateCashier(updatedCashier);
-      console.log(result.data);
-      // Update the local cashier list state with the updated cashier data
       setCashierList((prev) =>
         prev.map((cashier) =>
           cashier.cashId === updatedCashier.cashId ? updatedCashier : cashier
@@ -139,7 +141,7 @@ const CashierTable = ({ cashiers, users }) => {
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - cashiers.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - cashierList.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -150,11 +152,6 @@ const CashierTable = ({ cashiers, users }) => {
     setPage(0);
   };
 
-
-  useEffect(() => {
-    // Ensure this only runs when required and does not call external suspicious URLs
-  }, []);
-
   return (
     <>
       <UpdateCashierDialog
@@ -162,7 +159,7 @@ const CashierTable = ({ cashiers, users }) => {
         handleCloseDialog={handleCloseDialog}
         onUpdateCashier={handleUpdate}
         formData={updateData}
-        setFormData={setUpdateData} // Pass the state sett
+        setFormData={setUpdateData}
         users={users}
       />
       <TableContainer
