@@ -1,134 +1,157 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle,
-  TextField, FormControl, InputLabel, Select, MenuItem,
-  Button, Paper, FormControlLabel, Checkbox, InputAdornment
-} from '@mui/material';
-import { getAllGem } from '../../Configs/axios';
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  Paper,
+  FormControlLabel,
+  Checkbox,
+  InputAdornment,
+} from '@mui/material'
+import { getAllGem } from '../../Configs/axios'
 
-const AddProductDialog = ({ openDialog, handleCloseDialog, onAddProduct, initialFormData, goldData }) => {
-  const [formData, setFormData] = useState(initialFormData);
-  const [propChecks, setPropChecks] = useState({});
-  const [gemData, setGemData] = useState([]);
-  const [gemAmounts, setGemAmounts] = useState({});
+const AddProductDialog = ({
+  openDialog,
+  handleCloseDialog,
+  onAddProduct,
+  initialFormData,
+  goldData,
+}) => {
+  const [formData, setFormData] = useState(initialFormData)
+  const [propChecks, setPropChecks] = useState({})
+  const [gemData, setGemData] = useState([])
+  const [gemAmounts, setGemAmounts] = useState({})
 
   useEffect(() => {
-    setFormData(initialFormData);
-    getGemList();
-  }, [initialFormData]);
+    setFormData(initialFormData)
+    getGemList()
+  }, [initialFormData])
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
 
     // Ensure numerical fields are validated
-    if (['weight', 'machiningCost', 'size', 'amount', 'markupRate'].includes(name)) {
-      const parsedValue = parseFloat(value);
-      if (isNaN(parsedValue) || parsedValue < 0) return;
+    if (
+      ['weight', 'machiningCost', 'size', 'amount', 'markupRate'].includes(name)
+    ) {
+      const parsedValue = parseFloat(value)
+      if (isNaN(parsedValue) || parsedValue < 0) return
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: parsedValue
-      }));
+        [name]: parsedValue,
+      }))
     } else {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: value
-      }));
+        [name]: value,
+      }))
     }
-  };
+  }
 
   const handleCheckChange = (event) => {
-    const { name, checked } = event.target;
-    const gemKey = name; // Use name directly as gemKey
+    const { name, checked } = event.target
+    const gemKey = name // Use name directly as gemKey
 
     if (checked) {
       setPropChecks((prevChecks) => ({
         ...prevChecks,
-        [name]: checked
-      }));
+        [name]: checked,
+      }))
       setGemAmounts((prevAmounts) => ({
         ...prevAmounts,
-        [gemKey]: { gemId: '', amount: '' }
-      }));
+        [gemKey]: { gemId: '', amount: '' },
+      }))
     } else {
-      const newChecks = { ...propChecks };
-      delete newChecks[name];
-      setPropChecks(newChecks);
+      const newChecks = { ...propChecks }
+      delete newChecks[name]
+      setPropChecks(newChecks)
 
-      const newAmounts = { ...gemAmounts };
-      delete newAmounts[gemKey];
-      setGemAmounts(newAmounts);
+      const newAmounts = { ...gemAmounts }
+      delete newAmounts[gemKey]
+      setGemAmounts(newAmounts)
     }
-  };
+  }
 
   const handleGemChange = (event) => {
-    const { name, value } = event.target;
-    const gemKey = name.split('.')[0]; // Extract gem key
+    const { name, value } = event.target
+    const gemKey = name.split('.')[0] // Extract gem key
 
     setGemAmounts((prevAmounts) => ({
       ...prevAmounts,
       [gemKey]: {
         ...prevAmounts[gemKey],
-        gemId: value
-      }
-    }));
-  };
+        gemId: value,
+      },
+    }))
+  }
 
   const handleAmountChange = (event) => {
-    const { name, value } = event.target;
-    const gemKey = name.split('.')[0]; // Extract gem key
+    const { name, value } = event.target
+    const gemKey = name.split('.')[0] // Extract gem key
 
-    const parsedValue = parseFloat(value);
-    if (isNaN(parsedValue) || parsedValue < 0) return;
+    const parsedValue = parseFloat(value)
+    if (isNaN(parsedValue) || parsedValue < 0) return
 
     setGemAmounts((prevAmounts) => ({
       ...prevAmounts,
       [gemKey]: {
         ...prevAmounts[gemKey],
-        amount: parsedValue
-      }
-    }));
-  };
+        amount: parsedValue,
+      },
+    }))
+  }
 
   const handleAddProduct = () => {
-    const updatedGemData = {};
+    const updatedGemData = {}
     Object.keys(gemAmounts).forEach((key) => {
-      const { gemId, amount } = gemAmounts[key];
+      const { gemId, amount } = gemAmounts[key]
       if (gemId && amount) {
-        updatedGemData[gemId] = parseInt(amount, 10);
+        updatedGemData[gemId] = parseInt(amount, 10)
       }
-    });
+    })
 
     const updatedFormData = {
       ...formData,
-      gem: updatedGemData
-    };
-    onAddProduct(updatedFormData);
-    setFormData(initialFormData); // Reset the form
-    setGemAmounts({});
-    setPropChecks({});
-  };
+      gem: updatedGemData,
+    }
+    onAddProduct(updatedFormData)
+    setFormData(initialFormData) // Reset the form
+    setGemAmounts({})
+    setPropChecks({})
+  }
 
   const getGemList = async () => {
     try {
-      const result = await getAllGem();
+      const result = await getAllGem()
       if (result.isSuccess) {
-        setGemData(result.data);
+        setGemData(result.data)
         const initialPropChecks = result.data.reduce((acc, gem, index) => {
-          acc[`gemProp${index + 1}`] = false;
-          return acc;
-        }, {});
-        setPropChecks(initialPropChecks);
+          acc[`gemProp${index + 1}`] = false
+          return acc
+        }, {})
+        setPropChecks(initialPropChecks)
       }
     } catch (error) {
-      console.error('Error fetching gem data:', error);
+      console.error('Error fetching gem data:', error)
     }
-  };
+  }
 
   return (
     <Dialog open={openDialog} onClose={handleCloseDialog}>
       <DialogTitle>Add Product</DialogTitle>
       <DialogContent>
-        <Paper variant="outlined" component="form" sx={{ margin: 2, padding: 2 }}>
+        <Paper
+          variant="outlined"
+          component="form"
+          sx={{ margin: 2, padding: 2 }}
+        >
           {/* Other form fields */}
           <TextField
             margin="normal"
@@ -150,6 +173,7 @@ const AddProductDialog = ({ openDialog, handleCloseDialog, onAddProduct, initial
               <MenuItem value="Bracelet">Bracelet</MenuItem>
               <MenuItem value="Ring">Ring</MenuItem>
               <MenuItem value="Charm">Charm</MenuItem>
+              <MenuItem value="Earing">Earing</MenuItem>
             </Select>
           </FormControl>
           <FormControl fullWidth margin="normal" required>
@@ -161,7 +185,9 @@ const AddProductDialog = ({ openDialog, handleCloseDialog, onAddProduct, initial
             >
               {goldData && goldData.length > 0 ? (
                 goldData.map((gold) => (
-                  <MenuItem key={gold.goldId} value={gold.goldName}>{gold.goldName}</MenuItem>
+                  <MenuItem key={gold.goldId} value={gold.goldName}>
+                    {gold.goldName}
+                  </MenuItem>
                 ))
               ) : (
                 <MenuItem value="">
@@ -180,7 +206,9 @@ const AddProductDialog = ({ openDialog, handleCloseDialog, onAddProduct, initial
             value={formData.weight || ''}
             onChange={handleChange}
             InputProps={{
-              endAdornment: <InputAdornment position="end">grams</InputAdornment>
+              endAdornment: (
+                <InputAdornment position="end">grams</InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -193,7 +221,7 @@ const AddProductDialog = ({ openDialog, handleCloseDialog, onAddProduct, initial
             value={formData.machiningCost || ''}
             onChange={handleChange}
             InputProps={{
-              endAdornment: <InputAdornment position="end">VND</InputAdornment>
+              endAdornment: <InputAdornment position="end">VND</InputAdornment>,
             }}
           />
           <TextField
@@ -267,7 +295,9 @@ const AddProductDialog = ({ openDialog, handleCloseDialog, onAddProduct, initial
                       onChange={handleGemChange}
                     >
                       {gemData.map((g) => (
-                        <MenuItem key={g.gemId} value={g.gemId}>{g.name}</MenuItem>
+                        <MenuItem key={g.gemId} value={g.gemId}>
+                          {g.name}
+                        </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -288,10 +318,12 @@ const AddProductDialog = ({ openDialog, handleCloseDialog, onAddProduct, initial
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseDialog}>Cancel</Button>
-        <Button onClick={handleAddProduct} variant="contained" color="primary">Add Product</Button>
+        <Button onClick={handleAddProduct} variant="contained" color="primary">
+          Add Product
+        </Button>
       </DialogActions>
     </Dialog>
-  );
-};
+  )
+}
 
-export default AddProductDialog;
+export default AddProductDialog
