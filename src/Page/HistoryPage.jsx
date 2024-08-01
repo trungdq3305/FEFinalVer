@@ -82,11 +82,17 @@ const HistoryPage = () => {
           <h3 style={{ color: '#cc3366' }}>Number of bill</h3>
           <p style={{ fontWeight: 'bolder' }}>{cashBill.length}</p>
           <h3 style={{ color: '#cc3366' }}>Total Income</h3>
-          <p style={{ fontWeight: 'bolder' }}>{totalCost}</p>
+          <p style={{ fontWeight: 'bolder' }}>
+            {Number(totalCost).toLocaleString('en')} VND
+          </p>
           <h3 style={{ color: '#cc3366' }}>Cash Income</h3>
-          <p style={{ fontWeight: 'bolder' }}>{cash}</p>
+          <p style={{ fontWeight: 'bolder' }}>
+            {Number(cash).toLocaleString('en')} VND
+          </p>
           <h3 style={{ color: '#cc3366' }}>Card Income</h3>
-          <p style={{ fontWeight: 'bolder' }}>{card}</p>
+          <p style={{ fontWeight: 'bolder' }}>
+            {Number(card).toLocaleString('en')} VND
+          </p>
           <TextField
             select
             label="Payment"

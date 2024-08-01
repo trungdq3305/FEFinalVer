@@ -1,4 +1,5 @@
 import styles from '../Header/Header.module.scss'
+
 import React from 'react'
 import logo from '../../assets/logo.jpg'
 import CustomizedMenus from '../React-menu/ReactMenu'
@@ -12,9 +13,9 @@ const Header = ({ handleCategory }) => {
   const handleLogout = () => {
     const result = logOut()
   }
-  const userStr = localStorage.getItem('user');
-  const user = JSON.parse(userStr);
-  const userId = user ? user.userId : null;
+  const userStr = localStorage.getItem('user')
+  const user = JSON.parse(userStr)
+  const userId = user ? user.userId : null
   const handleNavigateToManageCustomer = () => {
     navigate('/StaffPage/StaffCustomer')
   }

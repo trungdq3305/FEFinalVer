@@ -59,7 +59,7 @@ const PaymentResponsePage = () => {
                       <th style="border: 1px solid #000000; padding: 10px; text-align: center; background-color: #cecece;">Product Name</th>
                       <th style="border: 1px solid #000000; padding: 10px; text-align: center; background-color: #cecece;">Quantity</th>
                       <th style="border: 1px solid #000000; padding: 10px; text-align: center; background-color: #cecece;">Price</th>
-                      <th style="border: 1px solid #000000; padding: 10px; text-align: center; background-color: #cecece;">Price After Discount</th>
+                      
                       <th style="border: 1px solid #000000; padding: 10px; text-align: center; background-color: #cecece;">Total Cost</th>
                     </tr>
                   </thead>
@@ -77,9 +77,7 @@ const PaymentResponsePage = () => {
                         <td style="border: 1px solid #000000; padding: 10px; text-align: center; color: #000000;">${
                           product.Quantity
                         }</td>
-                        <td style="border: 1px solid #000000; padding: 10px; text-align: center; color: #000000;">${Number(
-                          product.Price.toFixed(0)
-                        ).toLocaleString('vn')} VND</td>
+                        
                         <td style="border: 1px solid #000000; padding: 10px; text-align: center; color: #000000;">${Number(
                           product.PriceWithDiscount.toFixed(0)
                         ).toLocaleString('vn')} VND</td>
@@ -97,18 +95,10 @@ const PaymentResponsePage = () => {
               </div>
               <div style="text-align: left; font-size: 1em; display: flex; justify-content: space-between; align-items: flex-start; margin: 15px;">
                 <div style="padding: 10px;">
-                  <p><strong>Number of Products: </strong></p>
-                  <p><strong>Cost: </strong></p>
                   <p><strong>Voucher: </strong></p>
                   <p style="font-size: 1.2em; margin-top: 10px; color: black; font-weight: bold;"><strong>Total Cost: </strong></p>
                 </div>
                 <div style="text-align: right; padding: 10px;">
-                  <p style="margin: 5px 0; color: black;"><strong>${
-                    billProduct.length
-                  }</strong></p>
-                  <p style="margin: 5px 0; color: black;"><strong>${Number(
-                    totalCost.toFixed(0)
-                  ).toLocaleString('vn')}</strong></p>
                   <p style="margin: 5px 0; color: black;"><strong>${Number(
                     voucherCost.toFixed(0)
                   ).toLocaleString('vn')}</strong></p>
