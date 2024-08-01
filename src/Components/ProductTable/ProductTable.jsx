@@ -253,7 +253,10 @@ import { useTheme } from '@mui/material/styles';
 import AddDiscountDialog from './AddDiscountDialog';
 import { addDiscountProduct, removeProductDiscount } from '../../Configs/axios';
 import DiscountDialog from './ViewRemoveDiscount';
-
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 function TablePaginationActions(props) {
   const { count, page, rowsPerPage, onPageChange } = props;
   const theme = useTheme();
@@ -428,20 +431,20 @@ const ProductTable = ({ products, goldData, discountData, onEditProduct, refresh
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
-              <TableCell>Product Name</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Material</TableCell>
-              <TableCell>Weight(g)</TableCell>
-              <TableCell>Machining Cost(VND)</TableCell>
-              <TableCell>Size</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Image</TableCell>
-              <TableCell>Price(VND)</TableCell>
-              <TableCell>Price After Discount(VND)</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Id</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Product Name</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Category</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Material</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Weight(g)</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Machining Cost(VND)</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Size</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Amount</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Description</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Image</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Price(VND)</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Price After Discount(VND)</TableCell>
               {/* <TableCell>MarkupRate</TableCell> */}
-              <TableCell>Actions</TableCell>
+              <TableCell style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -462,9 +465,17 @@ const ProductTable = ({ products, goldData, discountData, onEditProduct, refresh
                 {/* <TableCell>{product.markupRate}</TableCell> */}
 
                 <TableCell>
-                  <Button onClick={() => handleEditClick(product)}>Update Product</Button>
-                  <Button onClick={() => handleViewDiscountClick(product)}>View Discounts</Button>
-                  <Button onClick={() => handleAddDiscountClick(product)}>Add Discount</Button>
+                  <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <IconButton onClick={() => handleEditClick(product)} style={{ color: '#FFA500' }}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={() => handleViewDiscountClick(product)} style={{ color: 'green' }}>
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton onClick={() => handleAddDiscountClick(product)} style={{ color: 'red' }}>
+                      <AddCircleIcon />
+                    </IconButton>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
@@ -480,6 +491,7 @@ const ProductTable = ({ products, goldData, discountData, onEditProduct, refresh
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleRowsPerPageChange}
                 ActionsComponent={TablePaginationActions}
+                style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}
               />
             </TableRow>
           </TableFooter>

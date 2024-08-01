@@ -23,7 +23,9 @@ import LastPageIcon from '@mui/icons-material/LastPage'
 import { activeDeactiveUser } from '../../Configs/axios'
 import ActiveDeactiveDialog from './ActiveDeactiveDialog'
 import UpdateRoleDialog from './UpdateRoleDialog'
-
+import EditIcon from '@mui/icons-material/Edit';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 const roleMapping = {
   1: 'Staff',
   2: 'Manager',
@@ -229,29 +231,29 @@ const UserTable = ({ users, onUpdateUserStatus, onUpdateRole }) => {
                   {formatStatus(user.status)}
                 </TableCell>
                 <TableCell style={{ width: 160 }} align="right">
-                  <Button onClick={() => handleOpenRoleDialog(user)}
-                    sx={{
-                      ...buttonStyle,
-                      backgroundColor: 'white',
-                      color: '#FFA500',
-                      border: '1px solid #FFA500',
-                      '&:hover': {
-                        backgroundColor: 'white',
-                        borderColor: '#FFA500',
-                      },
-                    }}>Update Role</Button>
-                  <Button onClick={() => handleOpenDialog(user.userId)}
-                    sx={{
-                      ...buttonStyle,
-                      backgroundColor: 'white',
-                      color: 'black',
-                      border: '1px solid black',
-                      '&:hover': {
-                        backgroundColor: 'white',
-                        borderColor: 'black',
-                      },
-                    }}>Active/Deactive</Button>
-                </TableCell>
+  <IconButton onClick={() => handleOpenRoleDialog(user)}
+    sx={{
+      backgroundColor: 'white',
+      color: '#FFA500',
+      '&:hover': {
+        backgroundColor: 'white',
+        borderColor: '#FFA500',
+      },
+    }}>
+    <EditIcon />
+  </IconButton>
+  <IconButton onClick={() => handleOpenDialog(user.userId)}
+    sx={{
+      backgroundColor: 'white',
+      color: 'black',
+      '&:hover': {
+        backgroundColor: 'white',
+        borderColor: 'black',
+      },
+    }}>
+    <ChangeCircleIcon />
+  </IconButton>
+</TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (

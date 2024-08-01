@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { addUser, getAllUsers, searchUser } from '../Configs/axios';
 import UserTable from '../Components/UserTable/UserTable';
 import AddUserDialog from '../Components/UserTable/AddUserDialog';
@@ -94,6 +94,10 @@ const ManageUsers = () => {
   if (loading) return <div>Loading....</div>;
 
   return (
+    <>
+     <Box sx={{ backgroundColor: '#333', padding: '10px', margin:'20px' }}>
+              <Typography variant="h6" sx={{ color: '#fff' }}>Manage Users</Typography>
+            </Box>
     <Box
       flexDirection="row"
       justifyContent="space-between"
@@ -101,11 +105,11 @@ const ManageUsers = () => {
       margin="20px"
     >
       <Button onClick={handleOpenDialog} sx={{
-        height: '50px', margin: '10px', backgroundColor: 'white',
-        color: '#3baf80',
+        height: '50px', margin: '10px', backgroundColor: '#3baf80',
+        color: 'white',
         border: '1px solid #3baf80',
         '&:hover': {
-          backgroundColor: 'white',
+          backgroundColor: '#3baf80',
           borderColor: '#3baf80',
         },
       }}>
@@ -129,7 +133,7 @@ const ManageUsers = () => {
       />
       <UserTable users={users} onUpdateUserStatus={handleUpdateUserStatus} onUpdateRole={handleUpdateRole}
  />
-    </Box>
+    </Box></>
   );
 };
 

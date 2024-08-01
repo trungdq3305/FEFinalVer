@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Paper, TextField, CircularProgress, Select, MenuItem, FormControl, InputLabel ,Typography} from '@mui/material';
+import { Box, Button, Paper, TextField, CircularProgress, Select, MenuItem, FormControl, InputLabel, Typography } from '@mui/material';
 import DiscountTable from '../Components/ManageDiscount/DiscountTable';
 import { addDiscount, getDiscount } from '../Configs/axios';
 import ManagerSideBar from '../Components/Sidebar/ManagerSideBar';
@@ -95,9 +95,9 @@ const ManageDiscount = () => {
       <Box sx={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
         <ManagerSideBar />
         <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
-        <Box sx={{ backgroundColor: '#333', padding: '10px', margin:'20px' ,marginBottom:'0px'}}>
-              <Typography variant="h6" sx={{ color: '#fff' }}>Manage Discounts</Typography>
-            </Box>
+          <Box sx={{ backgroundColor: '#333', padding: '10px', margin:'20px' ,marginBottom:'0px'}}>
+            <Typography variant="h6" sx={{ color: '#fff' }}>Manage Discounts</Typography>
+          </Box>
           <Paper sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '10px' }}>
             <AddDiscountDialog
               openDialog={openDialog}
@@ -109,7 +109,19 @@ const ManageDiscount = () => {
               <Button variant="contained" onClick={handleOpenDialog} sx={{ height: '50px', margin: '20px', backgroundColor: '#3baf80', color: 'white', border: '1px solid #3baf80', '&:hover': { backgroundColor: '#3baf80', borderColor: '#3baf80' } }}>
                 Add Discount
               </Button>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'left' }}>
+              <FormControl sx={{ minWidth: 120, marginRight: '10px', marginTop: '12px' }}>
+                <InputLabel>Status</InputLabel>
+                <Select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  label="Status"
+                >
+                  <MenuItem value="all">All</MenuItem>
+                  <MenuItem value="true">Active</MenuItem>
+                  <MenuItem value="false">Inactive</MenuItem>
+                </Select>
+              </FormControl>
                 <FormControl fullWidth margin="normal">
                   <InputLabel>Search By</InputLabel>
                   <Select
@@ -131,7 +143,7 @@ const ManageDiscount = () => {
                   margin="normal"
                   sx={{ marginLeft: '10px' }}
                 />
-                <Button variant="contained" onClick={handleSearch} sx={{ ml: 2, padding: '5px', background: '#2596be', color: 'white', border: '1px solid #2596be', '&:hover': { backgroundColor: '#2596be', borderColor: '#2596be' } ,height:'50px'}}>
+                <Button variant="contained" onClick={handleSearch} sx={{ ml: 2, padding: '5px', background: '#2596be', color: 'white', border: '1px solid #2596be', '&:hover': { backgroundColor: '#2596be', borderColor: '#2596be' }, height:'50px' }}>
                   {searching ? <CircularProgress size={24} /> : 'Search'}
                 </Button>
               </Box>

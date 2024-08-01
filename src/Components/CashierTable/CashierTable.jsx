@@ -22,6 +22,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import UpdateCashierDialog from './UpdateCashierDialog';
 import { updateCashier } from '../../Configs/axios';
 import { format } from 'date-fns';
+import EditIcon from '@mui/icons-material/Edit';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -212,23 +213,25 @@ const CashierTable = ({ cashiers, users }) => {
                   {cashier.status}
                 </TableCell>
                 <TableCell style={{ width: 160 }} align="right">
-                  <Button onClick={() => {
-                    handleOpenDialog();
-                    setUpdateData({
-                      ...initialFormData,
-                      ...cashier,
-                    });
-                  }}
-                  sx={{
-                    color: 'black',
-                    backgroundColor: 'lightblue',
-                    fontWeight: 'bold',
-                    '&:hover': {
-                      backgroundColor: '#D5E3F7',
-                    },
-                  }}
-                  >Update</Button>
-                </TableCell>
+      <IconButton
+        onClick={() => {
+          handleOpenDialog();
+          setUpdateData({
+            ...initialFormData,
+            ...cashier,
+          });
+        }}
+        sx={{
+          color: '#FFA500',
+          fontWeight: 'bold',
+          '&:hover': {
+            backgroundColor: '#D5E3F7',
+          },
+        }}
+      >
+        <EditIcon />
+      </IconButton>
+    </TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (
@@ -240,6 +243,7 @@ const CashierTable = ({ cashiers, users }) => {
           <TableFooter>
             <TableRow>
               <TablePagination
+               style={{ backgroundColor: 'lightgray', fontWeight: 'bold' }}
                 rowsPerPageOptions={[5, 10, 25]}
                 colSpan={8}
                 count={cashierList.length}

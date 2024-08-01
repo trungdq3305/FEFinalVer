@@ -77,7 +77,7 @@ const ManagerPage = () => {
                   borderColor: 'white',
                 },
               }}>
-              Staff management
+              go to Staff management
             </Button>
           </div>
         </div>

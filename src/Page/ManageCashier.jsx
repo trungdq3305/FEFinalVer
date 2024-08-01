@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField , Typography} from '@mui/material';
 import { addCashier, getAllCashier, searchCashier } from '../Configs/axios';
 import CashierTable from '../Components/CashierTable/CashierTable';
 import AddCashierDialog from '../Components/CashierTable/AddCashierDialog';
@@ -88,6 +88,10 @@ const ManageCashier = () => {
   if (loading) return <div>Loading....</div>;
 
   return (
+    <>
+    <Box sx={{ backgroundColor: '#333', padding: '10px', margin:'20px' }}>
+              <Typography variant="h6" sx={{ color: '#fff' }}>Manage Cashiers</Typography>
+            </Box>
     <Box
       display="flex"
       flexDirection="column"
@@ -107,11 +111,11 @@ const ManageCashier = () => {
             sx={{
               height: '50px',
               margin: '20px',
-              backgroundColor: 'white',
-              color: '#3baf80',
+              backgroundColor: '#3baf80',
+              color: 'white',
               border: '1px solid #3baf80',
               '&:hover': {
-                backgroundColor: 'white',
+                backgroundColor: '#3baf80',
                 borderColor: '#3baf80',
               },
             }}
@@ -123,11 +127,11 @@ const ManageCashier = () => {
             sx={{
               height: '50px',
               margin: '20px',
-              backgroundColor: 'white',
-              color: '#3baf80',
+              backgroundColor: '#3baf80',
+              color: 'white',
               border: '1px solid #3baf80',
               '&:hover': {
-                backgroundColor: 'white',
+                backgroundColor: '#3baf80',
                 borderColor: '#3baf80',
               },
             }}
@@ -157,7 +161,7 @@ const ManageCashier = () => {
         handleCloseDialog={handleCloseIncomeDialog}
       />
       <CashierTable cashiers={cashiers} users={users} />
-    </Box>
+    </Box></>
   );
 };
 
